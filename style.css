@@ -18,9 +18,7 @@ body{
 
 }
 
-.border{
-    /* border: 2px solid white; */
-}
+
 
 
 .nav-bar{
@@ -60,6 +58,16 @@ body{
     
 }
 
+
+.logo{
+    display: flex;
+    justify-content: space-around; 
+    align-items: center;
+    height: 60px;
+    padding: 10px;
+    backdrop-filter: blur(80px);
+    border-radius: 10px;
+}
 
 
 
@@ -116,4 +124,29 @@ body{
 
 .signup-padd{
     padding: 15px;
+}
+
+.but{
+    background-color: rgb(25, 128, 128);
+    color: aliceblue;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.input-box{
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid black;
+    outline: none;
+}
+
+.idd{
+    position: relative;
+    top: 4px;
+    right: 4px;
+} 
+.pas{
+    position: relative;
+    top: 4px;
+    right: 4px;
 }
