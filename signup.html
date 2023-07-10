@@ -9,9 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-
+    <!-- <script src="script.js"></script> -->
+    <script type="text/javascript" src="code.jquery.com_jquery-3.7.0.min.js"></script>
 </head>
+
 <body>
 
         <header>
@@ -33,9 +34,10 @@
                 <div class="nav-box">
                     <div class="Contact border">Contact Us</div>
                 </div>
-                <div class="login-box">
-                    <div class="Login border">Log in</div>
-                </div>
+                <!-- <div class="login-box">
+                    <a href="login.html" class="Login border">Log in</a>
+                    
+                </div> -->
             </div>
         </header>
 
@@ -44,41 +46,129 @@
 
         <div class="wrapper">
             <div class="signup">
-                <h2 class="signup-padd sign">Sign Up</h2>
+                <h2 class="signup-padd sign">Enter your details</h2>
 
                 <div class="name signup-padd">
                     <i class="fa-solid fa-user-large"></i>
-                    <input class="input-box" type="text" placeholder="Name">
+                    <input id="signup-name" class="input-box" type="text" placeholder="Name">
                 </div>
 
                 <div class="id signup-padd">
                     <i class="fa-solid fa-id-card idd"></i>
-                    <!-- <label>Id number</label> -->
-                    <input class="input-box" type="text" placeholder="ID number">
+                    
+                    <input id="signup-id" class="input-box" type="text" placeholder="ID number">
                 </div>
 
                 <div class="pass signup-padd">
                     <i class="fa-solid fa-key pas"></i>
-                    <!-- <label>Password</label> -->
-                    <input class="input-box" type="password" placeholder="password">
+                    
+                    <input id="signup-pass" class="input-box" type="password" placeholder="password">
                 </div>
 
+                
+
+
                 <div class="signup-padd">
-                    <button class="but">Submit</button>
+                    <!-- <a href="login.html" id="signup-btn" class="but" value="signup-submit">Submit</a> -->
+                    <button id="signup-btn" class="but" value="signup-submit">Submit</button>
                     
                 </div>
 
-                <div class="login signup-padd">
+                <!-- <div class="login signup-padd">
                     already have an account,
                     <a href="login.html">Log in</a> 
-                </div>
+                </div> -->
+                
                 
                 
 
 
             </div>
-        </div>
+            <div class="data">
+                <textarea id="workk" cols="60" rows="20" class="work" placeholder="Write your Article here..."></textarea>
+            </div>
+            </div>
        
+
+        <script type="text/javascript">
+
+            var db=openDatabase("submissionDB","1.0","Main db of the website",65535);
+
+            $(function(){
+                // loadData();
+
+                $("#signup-btn").click(function(){
+                    db.transaction(function(transaction){
+	                var sql="CREATE TABLE loginnew "+
+	                "(id INTEGER NOT NULL PRIMARY KEY,"+
+	                "name VARCHAR(45) NOT NULL,"+
+	                "password VARCHAR(20) NOT NULL,"+
+                    "work text(1000) NOT NULL)";
+	                transaction.executeSql(sql,undefined,function(){
+		                alert("Table is created successfully");
+	                },function(){
+		                alert("Table is already being created");
+	                })
+                    });
+
+                    var id = $("#signup-id").val();
+                    var name = $("#signup-name").val();
+                    var pass = $("#signup-pass").val();
+                    var work = $("#workk").val();
+                    // var work = "No work done yet";
+                    
+
+                    db.transaction(function(transaction){
+                    var sql="INSERT INTO loginnew(id,name,password,work) VALUES(?,?,?,?)";
+                    transaction.executeSql(sql,[id,name,pass,work],function(){
+	                    alert("New item is added successfully");
+                    },function(transaction,err){
+	                    alert(err.message);
+                    })
+                    })
+                });
+
+
+
+
+
+                //TO CHECK THE TABLE "LOGIN"
+
+                // $("#signup-btn").click(function(){
+                //     $("#signup-btn").click(function(){
+                //     loadData();
+                //     })
+                // });
+
+
+                // function loadData(){
+                //     db.transaction(function(transaction){
+                //     var sql="SELECT * FROM loginnew ORDER BY id";
+                //     transaction.executeSql(sql,undefined,function(transaction,result){
+                //         if(result.rows.length){
+                //             for(var i=0;i<result.rows.length;i++){
+                //                 var row = result.rows.item(i);
+                //                 var id = row.id;
+                //                 var name = row.name;
+                //                 var pass = row.password;
+                //                 var work = row.work;
+                //                 console.log(id+" "+name+" "+pass+" "+work);
+
+                //             }
+                //         }else{
+                //             console.log("no record");
+                //         }
+                //     })
+                //     })
+                // }
+
+                // TO CHECK THE TABLE "LOGIN"
+
+
+            
+            });
+
+        </script>
 
 
 
@@ -86,3 +176,8 @@
     
 </body>
 </html>
+
+
+
+
+                

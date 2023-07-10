@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <script type="text/javascript" src="code.jquery.com_jquery-3.7.0.min.js"></script>
 
 </head>
 <body>
@@ -48,17 +48,17 @@
                 <div class="id signup-padd">
                     <i class="fa-solid fa-id-card idd"></i>
                     <!-- <label>Id number</label> -->
-                    <input class="input-box" type="text" placeholder="your ID">
+                    <input id="login-id" class="input-box" type="text" placeholder="your ID">
                 </div>
 
                 <div class="pass signup-padd">
                     <i class="fa-solid fa-key pas"></i>
                     <!-- <label>Password</label> -->
-                    <input class="input-box" type="password" placeholder="password">
+                    <input id="login-pass" class="input-box" type="password" placeholder="password">
                 </div>
 
                 <div class="signup-padd">
-                    <button class="but">Submit</button>
+                    <button id="login-btn" class="but">Submit</button>
                     
                 </div>
 
@@ -76,6 +76,36 @@
         </div>
        
 
+
+        <script type="text/javascript">
+
+        var db=openDatabase("submissionDB","1.0","Main db of the website",65535);
+
+        $(function(){
+
+        
+        $("#login-btn").click(function(){
+            var id = $("#login-id").val();
+            var pass = $("#login-pass").val();
+            db.transaction(function(transaction){
+
+            
+            var sql = "SELECT name FROM loginnew where id = "+id+" and password = "+pass;
+            transaction.executeSql(sql,undefined,function(transaction,result){
+                if(result.rows.length == 0){
+                    alert("Wrong ID and Password");
+                }
+                else{
+                    window.location.href("content.html");
+                }
+            })
+        })
+
+        })
+
+    });
+
+        </script>
 
 
 
